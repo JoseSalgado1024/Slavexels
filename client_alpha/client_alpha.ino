@@ -667,8 +667,8 @@ void loop(){
          char codeS=convertCode(theMessage);
          switch(codeS){
           case 'r' :{ initDev(); reseted = true; break;}
-          case 'w' :{ /*Serial.println("PREPARE 4 ROUTINE..."); */syncDev = true; _playMusic(2);  break;}
-          case 's' : {playRoutine = true;/* Serial.print(thePass); Serial.print(".");*/ break;}
+          case 'w' :{ syncDev = true; _playMusic(2);  break;}
+          case 's' : {playRoutine = true; break;}
         }  
        }
        theMessage= ""; 
@@ -742,7 +742,5 @@ void initDev(){
   reseted =false;
   syncDev = false;
   rgb_set_values(0,0,0);
- /* Serial.println();
-  Serial.println("SERVER RESTARTED..."); */
   _playMusic(0); 
 }
