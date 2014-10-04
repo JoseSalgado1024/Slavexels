@@ -13,6 +13,7 @@
 #define GREEN 6
 #define  BLUE 5
 
+// FRAME'S STEPS ARRAY
 FLASH_TABLE(byte, color_table, 4, 
                   {255, 111, 0,3},  
                   {255,  0,123,0}, 
@@ -618,7 +619,8 @@ FLASH_TABLE(byte, color_table, 4,
 const int resetSOUND[] = {NOTE_B5,10,NOTE_B5,1,NOTE_D3,8,NOTE_B0,8,NOTE_GS1,8,NOTE_DS8,6};
 
 Timer t;
- 
+
+//CMD CODES 
 const String STARTC = "_START";
 const String RESETC = "_RESET";
 const String WAIT   = "|WAIT|";
@@ -633,10 +635,13 @@ const uint64_t pipe = 0xE8E8F0F0E1LL;
 
 int lastmsg = 1;
 String theMessage = "";
+
+//FLAGS, ALWAYS YOU NEED A LOT 
 boolean playRoutine = false;
 boolean reseted =false;
 boolean syncDev = false;
 
+//HACE FALTA Q COMENTE ALGO O.o
 void setup(){
   Serial.begin(57600);
   rgb_setup();
@@ -672,7 +677,8 @@ void loop(){
    
 }
 
-//Prepare arrived code
+
+//Prepare arrived code (OH YEAH!)
 char convertCode(String Message){
   char rCode = 'c';
   if(Message == RESETC){
@@ -686,7 +692,7 @@ char convertCode(String Message){
   
 }
 
-
+//CUMBIAS TILINGAS FOR THE ROLLINGAS BITCH
 void _playMusic(int toneCode)
 {
 
@@ -697,6 +703,7 @@ void _playMusic(int toneCode)
    noTone(8);
  }
  
+//MOVE YOUR ASS BABY 
  void doYourRoutine(){
    if(playRoutine && syncDev && reseted){
      thePass++;
@@ -708,6 +715,7 @@ void _playMusic(int toneCode)
    }
  }
  
+ //THE LIGTHS, I CAN SEE THE LIGHT, AND IS SO BEAUTIFUL
  void rgb_setup()
   {
       pinMode(GREEN, OUTPUT);
@@ -718,7 +726,7 @@ void _playMusic(int toneCode)
       digitalWrite(RED, HIGH);
   }
 
-
+//SETTING... OH SI
 void rgb_set_values(byte r,byte g,byte b)
   {
 
@@ -726,6 +734,8 @@ void rgb_set_values(byte r,byte g,byte b)
       analogWrite(BLUE, 255-g);
       analogWrite(RED,255- b);
   }
+  
+//I'M DON'T KNOW WHT WRITE HERE...SORRY
 void initDev(){
   thePass=0; 
   playRoutine = false;  
