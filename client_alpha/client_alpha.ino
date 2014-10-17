@@ -726,6 +726,7 @@ void rgb_set_values(byte r,byte g,byte b)
       analogWrite(BLUE, 255-g);
       analogWrite(RED,255- b);
   }
+  
 void initDev(){
   thePass=0; 
   playRoutine = false;  

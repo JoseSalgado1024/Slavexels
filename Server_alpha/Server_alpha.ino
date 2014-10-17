@@ -26,7 +26,7 @@ boolean cReady = false;
 boolean cycleRun = false;
 
 
-int thePass = -40;
+int thePass = 0;
 String sendmethis = "";
 
 
@@ -43,17 +43,18 @@ void loop(){
     t.update();
   if(sendData)
     {
-     int messageSize = sendmethis.length();
-     for (int i = 0; i < messageSize; i++) {
-     int charToSend[1];
-     charToSend[0] = sendmethis.charAt(i);
-     radio.write(charToSend,1);
-    }  
-     msg[0] = 2; 
-     radio.write(msg,1);
-     sendmethis = "";
-     sendData = true; 
-     if(sendmethis == STARTC){sendData =false;}
+       int messageSize = sendmethis.length();
+       for (int i = 0; i < messageSize; i++) {
+         int charToSend[1];
+         charToSend[0] = sendmethis.charAt(i);
+         radio.write(charToSend,1);
+        }  
+       msg[0] = 2; 
+       radio.write(msg,1);
+       sendmethis = "";
+       sendData = true; 
+       if(sendmethis == STARTC)
+          {sendData =false;}
     }
 
  }
