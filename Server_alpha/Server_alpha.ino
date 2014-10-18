@@ -29,7 +29,8 @@ boolean cycleRun = false;
 int thePass = 0;
 String sendmethis = "";
 
-
+ int incoming ;
+ 
 void setup()
 {
   Serial.begin(9600);
@@ -41,6 +42,32 @@ void setup()
 
 void loop(){
     t.update();
+     if (Serial.available() > 0) {
+    incoming = Serial.read();
+    // Serial.write(" pong: ");
+    //Serial.write(incoming);
+     
+  }
+  
+  if (incoming == 1)
+  {
+   sendData = true ;
+     sendmethis = RESETC;
+     incoming = 0 ;
+ }
+  else if (incoming == 2)
+  {
+     sendmethis = STARTC;
+     sendData = true ;
+     incoming = 0 ;
+  }
+  else if (incoming == 3)
+  {
+       sendmethis = WAIT;
+     sendData = true ;
+     incoming = 0 ;
+ }
+  
   if(sendData)
     {
        int messageSize = sendmethis.length();
