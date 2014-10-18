@@ -26,7 +26,7 @@ boolean cReady = false;
 boolean cycleRun = false;
 
 
-int thePass = -40;
+int thePass = 0;
 String sendmethis = "";
 
 
