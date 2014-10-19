@@ -643,7 +643,6 @@ boolean syncDev = false;
 
 //HACE FALTA Q COMENTE ALGO O.o
 void setup(){
-  Serial.begin(57600);
   rgb_setup();
   initDev();
   radio.begin();
@@ -668,7 +667,7 @@ void loop(){
          char codeS=convertCode(theMessage);
          switch(codeS){
           case 'r' :{ initDev(); reseted = true; break;}
-          case 'w' :{ syncDev = true; _playMusic(2);  break;}
+          case 'w' :{ syncDev = true; break;}
           case 's' : {playRoutine = true; break;}
         }  
        }
@@ -745,5 +744,4 @@ void initDev(){
   reseted =false;
   syncDev = false;
   rgb_set_values(0,0,0);
-//  _playMusic(0); 
 }
