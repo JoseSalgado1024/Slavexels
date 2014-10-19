@@ -657,7 +657,8 @@ void loop(){
    t.update();
   if (radio.available()){
     bool done = false;  
-      done = radio.read(msg, 1); 
+     // done =
+      radio.read(msg, 1); 
       char theChar = msg[0];
       if (msg[0] != 2){
         theMessage.concat(theChar);
@@ -744,5 +745,5 @@ void initDev(){
   reseted =false;
   syncDev = false;
   rgb_set_values(0,0,0);
-  _playMusic(0); 
+//  _playMusic(0); 
 }
