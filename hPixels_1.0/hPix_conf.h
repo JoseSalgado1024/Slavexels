@@ -1,8 +1,36 @@
-#define  _rt         10
-#define  pHIGH   _rt*10
-#define  pHIGH1  _rt*25
-#define  pLOW    _rt*50
-#define  pLOW1   _rt*100
+#define realTime 5
+#define prH1     realTime*10
+#define prH2     realTime*20
+#define prL1     realTime*50
+#define prL2     realTime*100
+
+//------------- LEDS STUFF -------------//
+#define cSteps 5
+
+//LED RGB PINS
+#define  RED   3
+#define  GREEN 6
+#define  BLUE  5
+int lsR = -1; int lsG = -1; int lsB = -1;
+
+
+//------------- SOUND STUFF -------------//
+//SOUND HRDWR CONFIGURATION
+
+boolean onRun = true;
+
+
+//------------- RADIO STUFF -------------//
+//CANAL SERVER -> CLIENTE
+const uint64_t pipe = 0xE8E8F0F0E1LL;
+int messageLength = 3;
+int msg[1];
+int lastmsg = 1;
+String theMessage = "";
+const String STARTC = "_START";
+const String RESETC = "_RESET";
+const String WAIT   = "|WAIT|";
+
 
 /*************************************************
  * Public Constants
