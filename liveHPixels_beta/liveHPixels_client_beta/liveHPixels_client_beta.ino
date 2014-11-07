@@ -34,12 +34,7 @@ void loop()
       byte theMessage[12];
       myRadio.read  (&theMessage,sizeof(theMessage)); 
       int dataIndex = (humanId-1)*2;
-      rgb_set_values(theMessage[dataIndex],theMessage[dataIndex+1],theMessage[dataIndex+2]);
-      for(int j = 0;j<4;j++){
-        Serial.print(theMessage[j]);
-        Serial.print("|");
-      }
-      Serial.println(dataIndex); 
+      rgb_set_values(theMessage[0],theMessage[1],theMessage[2]);
   }
 }
 
@@ -56,7 +51,7 @@ void loop()
 
 void rgb_set_values(byte r,byte g,byte b)
   {
-      analogWrite(GREEN,255- g);
-      analogWrite(BLUE, 255-b);
-      analogWrite(RED,255- r);
+      analogWrite(GREEN,255 - g);
+      analogWrite(BLUE, 255 - b);
+      analogWrite(RED,  255 - r);
   }
