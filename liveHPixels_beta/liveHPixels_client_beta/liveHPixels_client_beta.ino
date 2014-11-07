@@ -1,7 +1,12 @@
+#include <Event.h>
+#include <Timer.h>
+
 #include <nRF24L01.h>
 #include <RF24.h>
 #include <RF24_config.h>
 #include <SPI.h>
+#include "Tones.h"
+
 
 RF24 myRadio(9,10);
 const uint64_t pipe = 0xE8E8F0F0E1LL;
@@ -11,12 +16,19 @@ boolean printMe = false;
 int messageLength = 12;
 int msg[1];
 
+Timer t;
+
 int humanId = 1;
 
 #define   RED 3
 #define GREEN 6
 #define  BLUE 5
 
+#define SPEAKER 8
+
+int tones[6];
+
+int st = 0;
 
 void setup()
 {
@@ -25,33 +37,57 @@ void setup()
   myRadio.openReadingPipe(1,pipe);
   myRadio.startListening();
   rgb_setup();
-  
+  setupTones();
+  int tickEvent = t.every(50,soundTime);
 }
 
 void loop()
+
 {
+   t.update();
   if (myRadio.available()){
-      byte theMessage[12];
-      myRadio.read  (&theMessage,sizeof(theMessage)); 
-      int dataIndex = (humanId-1)*2;
-      rgb_set_values(theMessage[0],theMessage[1],theMessage[2]);
+    byte theMessage[12];
+    myRadio.read  (&theMessage,sizeof(theMessage)); 
+    int dataIndex = (humanId-1)*2;
+    rgb_set_values(theMessage[0],theMessage[1],theMessage[2]);
   }
 }
 
 //INIT RGB DEVICE
- void rgb_setup()
-  {
-      pinMode(GREEN, OUTPUT);
-      pinMode(BLUE, OUTPUT);
-      pinMode(RED, OUTPUT);
-      digitalWrite(GREEN, HIGH);
-      digitalWrite(BLUE, HIGH);
-      digitalWrite(RED, HIGH);
-  }
+void rgb_setup()
+{
+  pinMode(GREEN, OUTPUT);
+  pinMode(BLUE, OUTPUT);
+  pinMode(RED, OUTPUT);
+  digitalWrite(GREEN, HIGH);
+  digitalWrite(BLUE, HIGH);
+  digitalWrite(RED, HIGH);
+}
 
 void rgb_set_values(byte r,byte g,byte b)
-  {
-      analogWrite(GREEN,255 - g);
-      analogWrite(BLUE, 255 - b);
-      analogWrite(RED,  255 - r);
+{
+  analogWrite(GREEN,255 - g);
+  analogWrite(BLUE, 255 - b);
+  analogWrite(RED,  255 - r);
+}
+
+void setupTones(){
+  tones[0] = NOTE_CS4;
+  tones[1] = NOTE_D5;
+  tones[2] = NOTE_E1;
+  tones[3] = NOTE_DS2;
+  tones[4] = NOTE_B5;
+  tones[5] = NOTE_DS7;
+  tones[6] = NOTE_DS8; 
+}
+
+void soundTime(){
+  if(st>0){
+    st-=1;
+  }else{
+    noTone();
   }
+}
+
+void playTone(){}
+

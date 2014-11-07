@@ -1,3 +1,4 @@
+
 #include <nRF24L01.h>
 #include <RF24.h>
 #include <RF24_config.h>
@@ -28,7 +29,6 @@ void setup()
   sendmethis[10] = 0;
   sendmethis[11] = 0;
 }
-
 void loop()
 {
 
@@ -64,6 +64,8 @@ void commandComplete()
   myRadio.write(&sendmethis,sizeof(sendmethis));
   delay(100);
 }
+
+
 
 
 
