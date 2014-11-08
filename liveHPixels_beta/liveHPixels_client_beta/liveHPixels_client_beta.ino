@@ -42,9 +42,9 @@ void loop()
   if (myRadio.available()){
     byte theMessage[12];
     myRadio.read  (&theMessage,sizeof(theMessage)); 
-    dataIndex = (humanId-1)*2;
-    rgb_set_values(theMessage[0],theMessage[1],theMessage[2]);
-    playTone(theMessage[3]);
+    dataIndex = (humanId-1)*4;
+    rgb_set_values(theMessage[dataIndex+0],theMessage[dataIndex+1],theMessage[dataIndex+2]);
+    playTone(theMessage[dataIndex+3]);
   }
 }
 
