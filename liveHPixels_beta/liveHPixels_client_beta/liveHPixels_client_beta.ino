@@ -6,6 +6,7 @@
 #include <RF24_config.h>
 #include <SPI.h>
 #include "Tones.h"
+#include "config.h"
 
 
 RF24 myRadio(9,10);
@@ -18,17 +19,11 @@ int msg[1];
 
 Timer t;
 
-int humanId = 1;
-
-#define   RED 3
-#define GREEN 6
-#define  BLUE 5
-
-#define SPEAKER 8
-
 int tones[6];
 
 int st = 0;
+int dataIndex;
+
 
 void setup()
 {
@@ -42,16 +37,17 @@ void setup()
 }
 
 void loop()
-
 {
    t.update();
   if (myRadio.available()){
     byte theMessage[12];
     myRadio.read  (&theMessage,sizeof(theMessage)); 
-    int dataIndex = (humanId-1)*2;
+    dataIndex = (humanId-1)*2;
     rgb_set_values(theMessage[0],theMessage[1],theMessage[2]);
+    playTone(theMessage[3]);
   }
 }
+
 
 //INIT RGB DEVICE
 void rgb_setup()
@@ -64,6 +60,7 @@ void rgb_setup()
   digitalWrite(RED, HIGH);
 }
 
+
 void rgb_set_values(byte r,byte g,byte b)
 {
   analogWrite(GREEN,255 - g);
@@ -71,23 +68,33 @@ void rgb_set_values(byte r,byte g,byte b)
   analogWrite(RED,  255 - r);
 }
 
+
+
 void setupTones(){
-  tones[0] = NOTE_CS4;
+
+  tones[0] = 0;
   tones[1] = NOTE_D5;
   tones[2] = NOTE_E1;
   tones[3] = NOTE_DS2;
   tones[4] = NOTE_B5;
   tones[5] = NOTE_DS7;
-  tones[6] = NOTE_DS8; 
+  tones[6] = NOTE_DS8;
+  tones[7] = NOTE_CS4; 
 }
 
 void soundTime(){
   if(st>0){
     st-=1;
   }else{
-    noTone();
+    noTone(SPEAKER);
   }
 }
 
-void playTone(){}
+void playTone(int tone2Play){
+  if(tones[tone2Play] !=0){
+  noTone(SPEAKER);
+  tone(SPEAKER,tones[tone2Play]);
+  st = 10;
+  }
+}
 
