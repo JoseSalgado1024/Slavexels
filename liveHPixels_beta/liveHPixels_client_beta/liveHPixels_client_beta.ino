@@ -16,7 +16,7 @@ char sChar;
 boolean printMe = false;
 int messageLength = 12;
 int msg[1];
-
+    byte theMessage[12];
 Timer t;
 
 int tones[6];
@@ -40,12 +40,33 @@ void loop()
 {
    t.update();
   if (myRadio.available()){
-    byte theMessage[12];
+
     myRadio.read  (&theMessage,sizeof(theMessage)); 
-    dataIndex = (humanId-1)*4;
-    rgb_set_values(theMessage[dataIndex+0],theMessage[dataIndex+1],theMessage[dataIndex+2]);
+    dataIndex = (humanId)*4;
+    rgb_set_values(theMessage[dataIndex],theMessage[dataIndex+1],theMessage[dataIndex+2]);
     playTone(theMessage[dataIndex+3]);
+    
+    Serial.print("Data Index: ");
+    Serial.println(dataIndex);
+    
+    
+    for (int i= 0 ;i<4;i++ )
+      {
+        Serial.print(theMessage[dataIndex+i]);
+        Serial.print(',');
+        
+      }
+       Serial.println(" ");
+    for (int i= 0 ;i<12;i++ )
+      {
+         
+                Serial.print(theMessage[i]);
+                Serial.print(',');
+           
+      }
+          Serial.println('-');
   }
+
 }
 
 
